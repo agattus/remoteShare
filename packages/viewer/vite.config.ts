@@ -31,7 +31,10 @@ export default defineConfig({
     port: 47832,
     strictPort: true,
     host: "0.0.0.0",
-    proxy: { "/ws": { target: `ws://localhost:${serverPort}`, ws: true } },
+    proxy: {
+      "/ws": { target: `ws://localhost:${serverPort}`, ws: true },
+      "/api": { target: `http://localhost:${serverPort}` },
+    },
   },
   build: { outDir: "dist", sourcemap: false },
 });
