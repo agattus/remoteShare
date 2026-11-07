@@ -16,7 +16,7 @@ export type IceServer = z.infer<typeof iceServerSchema>;
 
 export const signalDataSchema = z.union([
   z.object({ kind: z.literal("description"), description: z.object({ type: z.enum(["offer", "answer"]), sdp: z.string().max(100_000) }) }),
-  z.object({ kind: z.literal("candidate"), candidate: z.object({ candidate: z.string().max(4_000), sdpMid: z.string().nullable().optional(), sdpMLineIndex: z.number().nullable().optional(), usernameFragment: z.string().nullable().optional() }).nullable() }),
+  z.object({ kind: z.literal("candidate"), candidate: z.object({ candidate: z.string().max(4_000).optional(), sdpMid: z.string().nullable().optional(), sdpMLineIndex: z.number().nullable().optional(), usernameFragment: z.string().nullable().optional() }).nullable() }),
 ]);
 export type SignalData = z.infer<typeof signalDataSchema>;
 
