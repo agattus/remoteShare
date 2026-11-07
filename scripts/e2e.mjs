@@ -219,6 +219,30 @@ try {
     await page.getByRole("alert").or(page.getByText("The remote device ended the session.")).first().waitFor({ timeout: 8000 });
   });
 
+  console.log("Desktop app as viewer");
+  await check("the Electron app can connect to another host as a viewer", async () => {
+    const DISPLAY2 = ":98";
+    run("Xvfb", [DISPLAY2, "-screen", "0", "1280x800x24"]);
+    await sleep(800);
+    const home2 = path.join(tmp, "home2");
+    fs.mkdirSync(home2, { recursive: true });
+    run(electron, [path.join(root, "packages/desktop"), "--no-sandbox", "--disable-gpu", "--remote-debugging-port=9333", `--user-data-dir=${path.join(tmp, "viewer-app")}`], {
+      env: { ...hostEnv, DISPLAY: DISPLAY2, HOME: home2 },
+    });
+    const cdp = await waitFor(() => chromium.connectOverCDP("http://127.0.0.1:9333"), 20_000, "desktop viewer CDP");
+    const appPage = await waitFor(() => cdp.contexts()[0]?.pages().find((p) => p.url().startsWith("file://")), 10_000, "desktop viewer window");
+    await appPage.getByRole("button", { name: "Connect" }).first().click();
+    await appPage.locator("#device-id").fill(config.deviceId);
+    await appPage.locator("#device-password").fill(config.password);
+    await appPage.getByRole("button", { name: "Connect", exact: true }).last().click();
+    await waitFor(() => appPage.evaluate(() => {
+      const v = document.querySelector("video");
+      return v && v.videoWidth > 0 && !v.paused;
+    }), 25_000, "video in the desktop viewer");
+    await appPage.getByRole("button", { name: "Disconnect" }).click();
+    await cdp.close();
+  });
+
   await browser.close();
   void host;
 } catch (err) {
