@@ -1,0 +1,7 @@
+node_modules
+**/node_modules
+**/dist
+packages/desktop/*
+!packages/desktop/package.json
+.git
+.e2e
