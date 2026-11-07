@@ -19,6 +19,7 @@ export interface PermissionStatus {
 /** API exposed by the Electron preload script. Undefined when running in a normal browser. */
 export interface DesktopBridge {
   platform: string;
+  defaultServerUrl: string | null;
   loadConfig(): Promise<HostConfig>;
   saveConfig(patch: Partial<HostConfig>): Promise<HostConfig>;
   listScreens(): Promise<{ screens: ScreenInfo[]; selected: string }>;

@@ -1,0 +1,44 @@
+{
+  "name": "@remotedesk/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "RemoteDesk desktop app: share this computer or control another one.",
+  "author": "RemoteDesk",
+  "main": "dist/main.cjs",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs",
+    "start": "npm run build && electron .",
+    "typecheck": "tsc -p tsconfig.json",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "@nut-tree-fork/nut-js": "^4.2.0"
+  },
+  "devDependencies": {
+    "@remotedesk/shared": "*",
+    "@types/node": "^22.10.0",
+    "zod": "^3.24.0",
+    "electron": "^35.0.0",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.25.0"
+  },
+  "build": {
+    "appId": "com.remotedesk.app",
+    "productName": "RemoteDesk",
+    "directories": { "output": "release" },
+    "files": ["dist/**", "assets/**", "package.json"],
+    "extraResources": [{ "from": "../viewer/dist", "to": "viewer" }],
+    "asarUnpack": ["node_modules/@nut-tree-fork/**", "node_modules/@nut-tree-fork/libnut*/**"],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": ["dmg", "zip"],
+      "extendInfo": {
+        "NSScreenCaptureUsageDescription": "RemoteDesk shares your screen with people you approve.",
+        "NSAppleEventsUsageDescription": "RemoteDesk performs mouse and keyboard input sent by approved viewers."
+      }
+    },
+    "win": { "target": ["nsis", "portable"] },
+    "linux": { "target": ["AppImage", "deb"], "category": "Network" }
+  }
+}

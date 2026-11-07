@@ -27,6 +27,7 @@ function write(key: string, value: string) {
 export function getServerUrl(): string {
   const saved = read(SERVER_KEY);
   if (saved) return saved;
+  if (window.desktop?.defaultServerUrl) return window.desktop.defaultServerUrl;
   if (location.protocol === "http:" || location.protocol === "https:") return location.origin;
   return DEFAULT_DESKTOP_SERVER;
 }

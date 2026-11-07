@@ -50,6 +50,7 @@ export class HostController {
   private signalQueue: Promise<void> = Promise.resolve();
   private sessionId: string | null = null;
   private transferId: string | null = null;
+  private fileQueue: Promise<void> = Promise.resolve();
   private unsubscribeDisconnect: (() => void) | null = null;
 
   async start(): Promise<void> {
@@ -212,7 +213,9 @@ export class HostController {
     this.control = control;
     control.onmessage = (event) => void this.onControlMessage(event.data);
     files.binaryType = "arraybuffer";
-    files.onmessage = (event) => void this.onFileMessage(files, event.data);
+    files.onmessage = (event) => {
+      this.fileQueue = this.fileQueue.then(() => this.onFileMessage(files, event.data));
+    };
 
     pc.onicecandidate = (event) => {
       this.signaling.send({
@@ -364,6 +367,7 @@ export class HostController {
     const hadSession = this.sessionId !== null || this.store.get().session !== null;
     if (this.transferId) desktop()?.fileAbort(this.transferId);
     this.transferId = null;
+    this.fileQueue = Promise.resolve();
     this.stream?.getTracks().forEach((t) => {
       t.onended = null;
       t.stop();
