@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci --ignore-scripts --workspace=@remotedesk/shared --workspace=@remotedesk/viewer --include-workspace-root",
+  "buildCommand": "npm run build -w @remotedesk/viewer",
+  "outputDirectory": "packages/viewer/dist"
+}

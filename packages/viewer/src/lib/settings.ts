@@ -28,6 +28,8 @@ export function getServerUrl(): string {
   const saved = read(SERVER_KEY);
   if (saved) return saved;
   if (window.desktop?.defaultServerUrl) return window.desktop.defaultServerUrl;
+  const configured = import.meta.env.VITE_SERVER_URL as string | undefined;
+  if (configured) return configured.replace(/\/+$/, "");
   if (location.protocol === "http:" || location.protocol === "https:") return location.origin;
   return DEFAULT_DESKTOP_SERVER;
 }

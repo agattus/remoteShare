@@ -145,3 +145,7 @@ What has been exercised: everything above on Linux (X11), plus a packaged Linux 
 - Text clipboard only (no images or files through the clipboard), and file transfer goes viewer to host only.
 - No audio forwarding, no session recording, and no multi-viewer sessions (one viewer per host at a time).
 - Device IDs and passwords live in a single server process. Run one instance (state is in memory), and expect hosts to reconnect automatically after a restart.
+
+## Hosting the browser viewer on Vercel
+
+The browser viewer is a static site, so it deploys to Vercel as-is (`vercel.json` is included). Vercel cannot run the signaling server, because that needs long-lived WebSocket connections. Run the server on a VPS, Fly.io, Railway or similar (see "Access from other locations"), then point the viewer at it with either the **Settings** dialog or a `VITE_SERVER_URL` environment variable (for example `https://remote.example.com`) set in the Vercel project before building.

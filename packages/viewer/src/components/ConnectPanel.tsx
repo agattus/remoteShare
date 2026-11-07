@@ -54,7 +54,9 @@ export function ConnectPanel({ session }: { session: ViewerSession }) {
     state.status === "error"
       ? state.code === "rate-limited" && state.retryAfterSec
         ? `${state.message} (about ${Math.max(1, Math.ceil(state.retryAfterSec / 60))} min)`
-        : state.message
+        : state.code === "network"
+          ? `${state.message}. Check the server address in Settings.`
+          : state.message
       : state.status === "ended"
         ? END_MESSAGES[state.reason]
         : null;
