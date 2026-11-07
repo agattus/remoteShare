@@ -1,0 +1,9 @@
+node_modules
+dist
+release
+out
+.env
+*.log
+.DS_Store
+packages/server/data
+.e2e
