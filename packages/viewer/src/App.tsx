@@ -71,7 +71,7 @@ export function App() {
             <div className="space-y-10">
               <Hero desktopApp={desktopApp} />
               <div className={`grid items-start gap-6 ${desktopApp ? "mx-auto max-w-md" : "lg:grid-cols-2 lg:gap-10"}`}>
-                <ConnectPanel session={session} />
+                <ConnectPanel session={session} ownDeviceId={desktopApp ? hostState.config?.deviceId : null} />
                 {!desktopApp && (
                   <div className="lg:pt-2">
                     <HowItWorks />

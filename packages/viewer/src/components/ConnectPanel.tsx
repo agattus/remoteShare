@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { forgetDevice, getRecentDevices } from "@/lib/settings";
 import { useStore } from "@/lib/useStore";
-import type { EndReason, ViewerSession, ViewerState } from "@/lib/viewerSession";
+import { SELF_CONNECT_MESSAGE, type EndReason, type ViewerSession, type ViewerState } from "@/lib/viewerSession";
 
 const END_MESSAGES: Record<EndReason, string> = {
   denied: "The person at that device declined the connection.",
@@ -31,7 +31,7 @@ function statusFor(state: ViewerState): { busy: boolean; text: string } | null {
   }
 }
 
-export function ConnectPanel({ session }: { session: ViewerSession }) {
+export function ConnectPanel({ session, ownDeviceId }: { session: ViewerSession; ownDeviceId?: string | null }) {
   const { state } = useStore(session.store);
   const [id, setId] = useState(() => formatDeviceId(getRecentDevices()[0] ?? ""));
   const [password, setPassword] = useState("");
@@ -41,12 +41,13 @@ export function ConnectPanel({ session }: { session: ViewerSession }) {
   const status = statusFor(state);
   const busy = status?.busy ?? false;
   const idValid = normalizeDeviceId(id).length === DEVICE_ID_LENGTH;
-  const canSubmit = idValid && password.length > 0 && !busy;
+  const isOwnId = idValid && !!ownDeviceId && normalizeDeviceId(id) === normalizeDeviceId(ownDeviceId);
+  const canSubmit = idValid && !isOwnId && password.length > 0 && !busy;
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
     if (!canSubmit) return;
-    void session.connect(id, password);
+    void session.connect(id, password, ownDeviceId);
     setRecents(getRecentDevices());
   };
 
@@ -84,8 +85,15 @@ export function ConnectPanel({ session }: { session: ViewerSession }) {
                 className="h-12 bg-black/20 font-mono text-xl tracking-[0.2em]"
                 value={id}
                 disabled={busy}
+                aria-invalid={isOwnId || undefined}
+                aria-describedby={isOwnId ? "own-id-hint" : undefined}
                 onChange={(e) => setId(formatDeviceId(e.target.value))}
               />
+              {isOwnId && (
+                <p id="own-id-hint" role="alert" className="flex items-start gap-1.5 text-sm text-amber-300">
+                  <AlertTriangle className="mt-0.5 size-4 shrink-0" /> {SELF_CONNECT_MESSAGE}
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="device-password">Password</Label>

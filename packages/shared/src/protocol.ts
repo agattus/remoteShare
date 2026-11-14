@@ -33,6 +33,7 @@ export const clientMessageSchema = z.discriminatedUnion("type", [
     deviceId: deviceIdSchema,
     password: z.string().max(MAX_PASSWORD_LENGTH),
     viewerName: z.string().trim().min(1).max(64),
+    fromDeviceId: deviceIdSchema.optional(),
   }),
   z.object({ type: z.literal("consent"), sessionId: z.string().min(8).max(64), allow: z.boolean() }),
   z.object({ type: z.literal("signal"), sessionId: z.string().min(8).max(64), data: signalDataSchema }),
@@ -47,6 +48,7 @@ export type ErrorCode =
   | "device-busy"
   | "rate-limited"
   | "id-claimed"
+  | "self-connect"
   | "not-registered"
   | "consent-timeout"
   | "server-error";
@@ -54,7 +56,7 @@ export type ErrorCode =
 export type ServerMessage =
   | { type: "registered"; deviceId: string; hostKey: string; iceServers: IceServer[] }
   | { type: "error"; code: ErrorCode; message: string; retryAfterSec?: number }
-  | { type: "incoming-request"; sessionId: string; viewerName: string; viewerIp: string }
+  | { type: "incoming-request"; sessionId: string; viewerName: string; viewerIp: string; sameNetwork?: boolean }
   | { type: "awaiting-consent"; sessionId: string }
   | { type: "session-accepted"; sessionId: string; role: "host" | "viewer"; iceServers: IceServer[] }
   | { type: "session-denied"; sessionId: string; reason: "denied" | "timeout" }

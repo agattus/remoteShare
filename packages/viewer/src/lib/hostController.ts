@@ -170,7 +170,7 @@ export class HostController {
       case "incoming-request": {
         const config = this.store.get().config;
         this.store.set({ session: { id: m.sessionId, viewerName: m.viewerName, phase: "pending" } });
-        const allow = config?.unattended ? true : await bridge.requestConsent({ viewerName: m.viewerName, viewerIp: m.viewerIp });
+        const allow = config?.unattended ? true : await bridge.requestConsent({ viewerName: m.viewerName, viewerIp: m.viewerIp, sameNetwork: m.sameNetwork });
         if (this.store.get().session?.id !== m.sessionId) return;
         this.signaling.send({ type: "consent", sessionId: m.sessionId, allow });
         if (!allow) this.store.set({ session: null });

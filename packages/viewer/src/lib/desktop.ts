@@ -25,7 +25,7 @@ export interface DesktopBridge {
   listScreens(): Promise<{ screens: ScreenInfo[]; selected: string }>;
   selectScreen(id: string): Promise<void>;
   injectInput(event: InputEvent): void;
-  requestConsent(info: { viewerName: string; viewerIp: string }): Promise<boolean>;
+  requestConsent(info: { viewerName: string; viewerIp: string; sameNetwork?: boolean }): Promise<boolean>;
   sessionStarted(info: { viewerName: string }): void;
   sessionEnded(): void;
   onDisconnectRequest(callback: () => void): () => void;

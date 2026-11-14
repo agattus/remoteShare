@@ -163,6 +163,9 @@ export class Hub {
     const state = this.peers.get(peer)!;
     if (state.role === "host") return this.error(peer, "bad-request", "Hosts cannot connect to other devices");
     if (state.sessionId) return this.error(peer, "bad-request", "A session is already in progress");
+    if (msg.fromDeviceId && msg.fromDeviceId === msg.deviceId) {
+      return this.error(peer, "self-connect", "That is this computer's own Device ID. Enter the ID of the other computer.");
+    }
     state.role = "viewer";
 
     const ipLock = this.ipLimiter.check(peer.ip);
@@ -206,7 +209,10 @@ export class Hub {
     this.sessions.set(session.id, session);
     state.sessionId = session.id;
     this.peers.get(device.peer)!.sessionId = session.id;
-    device.peer.send({ type: "incoming-request", sessionId: session.id, viewerName: msg.viewerName, viewerIp: peer.ip });
+    device.peer.send({ type: "incoming-request", sessionId: session.id, viewerName: msg.viewerName,
+      viewerIp: peer.ip,
+      sameNetwork: peer.ip === device.peer.ip,
+    });
     peer.send({ type: "awaiting-consent", sessionId: session.id });
   }
 

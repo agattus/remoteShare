@@ -17,6 +17,8 @@ import { SignalingClient } from "./signaling";
 import { Store } from "./store";
 import { getServerUrl, getViewerName, rememberDevice, toWebSocketUrl } from "./settings";
 
+export const SELF_CONNECT_MESSAGE = "That is this computer's own Device ID. Enter the ID of the other computer.";
+
 export type EndReason = "denied" | "timeout" | "host-offline" | "peer-left" | "ended" | "connection-lost";
 
 export type ViewerState =
@@ -67,9 +69,13 @@ export class ViewerSession {
   private disposed = false;
   private finished = false;
 
-  async connect(deviceIdInput: string, password: string): Promise<void> {
+  async connect(deviceIdInput: string, password: string, ownDeviceId?: string | null): Promise<void> {
     this.reset();
     const deviceId = normalizeDeviceId(deviceIdInput);
+    if (ownDeviceId && normalizeDeviceId(ownDeviceId) === deviceId) {
+      this.fail({ status: "error", code: "self-connect", message: SELF_CONNECT_MESSAGE });
+      return;
+    }
     this.store.set({ state: { status: "signaling" } });
 
     this.signaling.onMessage = (m) => this.onServerMessage(m);
@@ -89,7 +95,7 @@ export class ViewerSession {
       return;
     }
     rememberDevice(deviceId);
-    this.signaling.send({ type: "connect", deviceId, password, viewerName: getViewerName() });
+    this.signaling.send({ type: "connect", deviceId, password, viewerName: getViewerName(), fromDeviceId: ownDeviceId ? normalizeDeviceId(ownDeviceId) : undefined });
   }
 
   disconnect(): void {

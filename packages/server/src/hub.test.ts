@@ -47,6 +47,22 @@ describe("Hub", () => {
     expect(host2.last("registered")?.deviceId).toBe(reg.deviceId);
   });
 
+  it("rejects a viewer that tries to connect to its own device id", () => {
+    const host = new FakePeer();
+    const { deviceId } = register(hub, host);
+    const viewer = new FakePeer("10.0.0.2");
+    hub.handle(viewer, { type: "connect", deviceId, password: "secret123", viewerName: "Tester", fromDeviceId: deviceId });
+    expect(viewer.last("error")?.code).toBe("self-connect");
+    expect(host.last("incoming-request")).toBeUndefined();
+  });
+
+  it("flags requests that come from the host's own network", () => {
+    const host = new FakePeer("10.0.0.1");
+    const { deviceId } = register(hub, host);
+    connect(hub, new FakePeer("10.0.0.1"), deviceId, "secret123");
+    expect(host.last("incoming-request")?.sameNetwork).toBe(true);
+  });
+
   it("refuses to claim an id with the wrong host key", () => {
     const reg = register(hub, new FakePeer());
     const thief = new FakePeer();

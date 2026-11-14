@@ -188,7 +188,7 @@ function hideBanner(): void {
   bannerWindow = null;
 }
 
-const consentInfoSchema = z.object({ viewerName: z.string().max(64), viewerIp: z.string().max(64) });
+const consentInfoSchema = z.object({ viewerName: z.string().max(64), viewerIp: z.string().max(64), sameNetwork: z.boolean().optional() });
 
 async function askConsent(raw: unknown): Promise<boolean> {
   const info = consentInfoSchema.parse(raw);
@@ -207,7 +207,9 @@ async function askConsent(raw: unknown): Promise<boolean> {
       type: "question",
       title: "Allow remote control?",
       message: `${info.viewerName} wants to control this computer`,
-      detail: `Connection from ${info.viewerIp}. Only allow this if you recognize the device and expected a connection.`,
+      detail: info.sameNetwork
+        ? `Connection from ${info.viewerIp}, the same network as this computer. If this request comes from this very computer, choose Deny: controlling a computer from itself only shows an endless mirror. Otherwise allow it only if you recognize the device and expected a connection.`
+        : `Connection from ${info.viewerIp}. Only allow this if you recognize the device and expected a connection.`,
       buttons: ["Allow", "Deny"],
       defaultId: 1,
       cancelId: 1,
