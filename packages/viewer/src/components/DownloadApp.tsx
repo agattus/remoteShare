@@ -16,7 +16,7 @@ export function DownloadApp() {
   const others = (Object.keys(DOWNLOADS) as (keyof typeof DOWNLOADS)[]).filter((p) => p !== platform);
 
   return (
-    <Card className="mt-6">
+    <Card className="gap-0 py-5">
       <CardContent className="space-y-4">
         <div className="flex items-start gap-3">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground">

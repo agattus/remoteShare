@@ -67,18 +67,25 @@ export function HostPanel({ host, onOpenSettings }: { host: HostController; onOp
 
   return (
     <div className="mx-auto w-full max-w-xl space-y-4">
+      <div className="animate-float-in pb-2 text-center">
+        <h1 className="text-3xl font-semibold tracking-tight">This <span className="text-gradient">computer</span></h1>
+        <p className="mt-1.5 text-muted-foreground">Share the Device ID and password below with whoever needs to connect.</p>
+      </div>
       <Card>
         <CardHeader>
           <div className="flex items-start justify-between gap-3">
             <div>
-              <CardTitle className="text-xl">Allow remote access to this computer</CardTitle>
-              <CardDescription className="mt-1.5">Share these details with the person (or the other device) that will connect.</CardDescription>
+              <CardTitle className="text-xl">Allow remote access</CardTitle>
+              <CardDescription className="mt-1.5">Others can request control once you are online.</CardDescription>
             </div>
-            <Badge className={`shrink-0 ${label.className}`}>{label.text}</Badge>
+            <Badge className={`shrink-0 gap-1.5 py-1 pr-2.5 pl-2 ${label.className}`}>
+              <span className={`size-1.5 rounded-full bg-current ${status === "online" ? "animate-pulse" : ""}`} />
+              {label.text}
+            </Badge>
           </div>
         </CardHeader>
         <CardContent className="space-y-5">
-          <div className="flex items-center justify-between gap-3 rounded-md border bg-secondary/30 px-3 py-2 text-sm">
+          <div className="flex items-center justify-between gap-3 rounded-lg border bg-black/20 px-3 py-2 text-sm">
             <span className="min-w-0 truncate text-muted-foreground">
               Server: <span className="font-mono text-foreground">{config.serverUrl || fallbackServer}</span>
             </span>
@@ -96,7 +103,7 @@ export function HostPanel({ host, onOpenSettings }: { host: HostController; onOp
             <div className="flex gap-2">
               <div
                 data-testid="device-id"
-                className="flex h-12 flex-1 items-center rounded-md border bg-secondary/40 px-4 font-mono text-2xl tracking-widest"
+                className="text-gradient flex h-16 flex-1 items-center rounded-xl border bg-black/25 px-5 font-mono text-3xl font-semibold tracking-[0.18em] sm:text-4xl"
               >
                 {config.deviceId ? formatDeviceId(config.deviceId) : "—"}
               </div>
@@ -124,7 +131,7 @@ export function HostPanel({ host, onOpenSettings }: { host: HostController; onOp
               </div>
             ) : (
               <div className="flex gap-2">
-                <div data-testid="host-password" className="flex h-10 flex-1 items-center rounded-md border bg-secondary/40 px-3 font-mono">
+                <div data-testid="host-password" className="flex h-10 flex-1 items-center rounded-lg border bg-black/25 px-3 font-mono">
                   {showPassword ? config.password : "•".repeat(config.password.length)}
                 </div>
                 <Button variant="outline" size="icon" onClick={() => setShowPassword((s) => !s)} aria-label={showPassword ? "Hide password" : "Show password"}>

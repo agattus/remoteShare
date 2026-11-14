@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertTriangle, ArrowRight, Eye, EyeOff, Loader2, MonitorSmartphone, ShieldCheck, X } from "lucide-react";
+import { AlertTriangle, ArrowRight, Eye, EyeOff, Loader2, MonitorSmartphone, X } from "lucide-react";
 import { formatDeviceId, normalizeDeviceId, DEVICE_ID_LENGTH } from "@remotedesk/shared";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -63,10 +63,10 @@ export function ConnectPanel({ session }: { session: ViewerSession }) {
   const isProblem = state.status === "error" || (state.status === "ended" && state.reason !== "ended" && state.reason !== "peer-left");
 
   return (
-    <div className="mx-auto w-full max-w-md">
+    <div className="mx-auto w-full max-w-md lg:max-w-none">
       <Card>
         <CardHeader>
-          <div className="mb-2 flex size-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
+          <div className="mb-2 flex size-11 items-center justify-center rounded-xl bg-gradient-to-b from-primary/30 to-primary/10 text-primary ring-1 ring-primary/30">
             <MonitorSmartphone className="size-5" />
           </div>
           <CardTitle className="text-xl">Control a remote computer</CardTitle>
@@ -81,7 +81,7 @@ export function ConnectPanel({ session }: { session: ViewerSession }) {
                 inputMode="numeric"
                 autoComplete="off"
                 placeholder="123 456 789"
-                className="h-11 font-mono text-lg tracking-widest"
+                className="h-12 bg-black/20 font-mono text-xl tracking-[0.2em]"
                 value={id}
                 disabled={busy}
                 onChange={(e) => setId(formatDeviceId(e.target.value))}
@@ -94,7 +94,7 @@ export function ConnectPanel({ session }: { session: ViewerSession }) {
                   id="device-password"
                   type={showPassword ? "text" : "password"}
                   autoComplete="off"
-                  className="h-11 pr-10"
+                  className="h-12 bg-black/20 pr-10"
                   placeholder="Device password"
                   value={password}
                   disabled={busy}
@@ -165,9 +165,6 @@ export function ConnectPanel({ session }: { session: ViewerSession }) {
           )}
         </CardContent>
       </Card>
-      <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
-        <ShieldCheck className="size-3.5" /> Screen and input travel peer-to-peer, encrypted end to end.
-      </p>
     </div>
   );
 }
