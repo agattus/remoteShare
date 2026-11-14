@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { MonitorUp, Settings, Cast, Radio, ShieldCheck } from "lucide-react";
+import { Settings, Cast, Radio, ShieldCheck } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { ConnectPanel } from "@/components/ConnectPanel";
 import { DownloadApp } from "@/components/DownloadApp";
+import { Logo } from "@/components/Logo";
 import { Hero, HowItWorks } from "@/components/Landing";
 import { HostPanel } from "@/components/HostPanel";
 import { RemoteScreen } from "@/components/RemoteScreen";
@@ -41,10 +42,8 @@ export function App() {
       <div className="mx-auto flex min-h-full max-w-5xl flex-col px-4 py-5 sm:px-6">
         <header className="mb-8 flex items-center justify-between gap-4 sm:mb-12">
           <div className="flex items-center gap-2.5">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-[oklch(0.72_0.17_245)] to-[oklch(0.58_0.24_300)] text-white shadow-[0_8px_24px_-8px_oklch(0.6_0.22_280/0.9)]">
-              <MonitorUp className="size-5" />
-            </div>
-            <span className="text-lg font-semibold tracking-tight">RemoteDesk</span>
+            <Logo className="size-9 drop-shadow-[0_6px_16px_oklch(0.6_0.22_285/0.6)]" />
+            <span className="text-lg font-semibold tracking-tight">Orbit</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -74,12 +73,12 @@ export function App() {
               <div className={`grid items-start gap-6 ${desktopApp ? "mx-auto max-w-md" : "lg:grid-cols-2 lg:gap-10"}`}>
                 <ConnectPanel session={session} />
                 {!desktopApp && (
-                  <div className="space-y-6 lg:pt-2">
+                  <div className="lg:pt-2">
                     <HowItWorks />
-                    <DownloadApp />
                   </div>
                 )}
               </div>
+              {!desktopApp && <DownloadApp />}
             </div>
           )}
         </main>

@@ -66,7 +66,7 @@ function createMainWindow(): void {
     height: 760,
     minWidth: 760,
     minHeight: 560,
-    title: "RemoteDesk",
+    title: "Orbit",
     backgroundColor: "#0c0e14",
     icon: path.join(assets, "icon.png"),
     show: !process.argv.includes("--hidden"),
@@ -106,17 +106,17 @@ function showMainWindow(): void {
 function createTray(): void {
   const image = nativeImage.createFromPath(path.join(assets, "tray.png"));
   tray = new Tray(image.resize({ width: 16, height: 16 }));
-  tray.setToolTip("RemoteDesk");
+  tray.setToolTip("Orbit");
   tray.on("click", showMainWindow);
   updateTrayMenu(false);
 }
 
 function updateTrayMenu(sessionActive: boolean): void {
   if (!tray) return;
-  tray.setToolTip(sessionActive ? "RemoteDesk: someone is controlling this computer" : "RemoteDesk");
+  tray.setToolTip(sessionActive ? "Orbit: someone is controlling this computer" : "Orbit");
   tray.setContextMenu(
     Menu.buildFromTemplate([
-      { label: "Open RemoteDesk", click: showMainWindow },
+      { label: "Open Orbit", click: showMainWindow },
       ...(sessionActive
         ? [{ label: "Disconnect remote session", click: () => mainWindow?.webContents.send("session:disconnect-request") }]
         : []),
@@ -200,7 +200,7 @@ async function askConsent(raw: unknown): Promise<boolean> {
   const controller = new AbortController();
   consentAbort = controller;
   if (Notification.isSupported()) {
-    new Notification({ title: "RemoteDesk connection request", body: `${info.viewerName} wants to control this computer.` }).show();
+    new Notification({ title: "Orbit connection request", body: `${info.viewerName} wants to control this computer.` }).show();
   }
   try {
     const result = await dialog.showMessageBox({

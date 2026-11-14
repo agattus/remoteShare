@@ -34,7 +34,7 @@ function downloadsDir(): string {
 
 export function fileBegin(name: string, size: number): string {
   if (!Number.isFinite(size) || size < 0 || size > MAX_FILE_SIZE) throw new Error("File is too large");
-  const dir = path.join(downloadsDir(), "RemoteDesk");
+  const dir = path.join(downloadsDir(), "Orbit");
   fs.mkdirSync(dir, { recursive: true });
   const target = uniquePath(dir, safeName(name));
   const stream = fs.createWriteStream(target, { flags: "wx", mode: 0o600 });

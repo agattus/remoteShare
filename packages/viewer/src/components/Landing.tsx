@@ -20,7 +20,7 @@ export function Hero({ desktopApp }: { desktopApp: boolean }) {
 }
 
 const STEPS: { icon: LucideIcon; title: string; body: string }[] = [
-  { icon: Download, title: "Install on the computer you want to reach", body: "Open RemoteDesk there. It shows a Device ID and password." },
+  { icon: Download, title: "Install on the computer you want to reach", body: "Open Orbit there. It shows a Device ID and password." },
   { icon: MonitorSmartphone, title: "Enter them here", body: "Type the Device ID and password from any browser or the app." },
   { icon: Lock, title: "Approve and take control", body: "The other person (or you, if unattended) allows it, then your screen and keyboard connect directly." },
 ];

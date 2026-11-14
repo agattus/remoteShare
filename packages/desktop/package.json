@@ -2,8 +2,8 @@
   "name": "@remotedesk/desktop",
   "version": "0.1.0",
   "private": true,
-  "description": "RemoteDesk desktop app: share this computer or control another one.",
-  "author": "RemoteDesk",
+  "description": "Orbit desktop app: share this computer or control another one.",
+  "author": "Orbit",
   "homepage": "https://github.com/agattus/remoteShare",
   "main": "dist/main.cjs",
   "scripts": {
@@ -25,9 +25,9 @@
     "esbuild": "^0.25.0"
   },
   "build": {
-    "appId": "com.remotedesk.app",
+    "appId": "com.orbit.desktop",
     "npmRebuild": false,
-    "productName": "RemoteDesk",
+    "productName": "Orbit",
     "directories": { "output": "release" },
     "files": ["dist/**", "assets/**", "package.json"],
     "extraResources": [{ "from": "../viewer/dist", "to": "viewer" }],
@@ -35,16 +35,16 @@
     "mac": {
       "category": "public.app-category.utilities",
       "target": ["dmg", "zip"],
-      "artifactName": "RemoteDesk-${arch}.${ext}",
+      "artifactName": "Orbit-${arch}.${ext}",
       "extendInfo": {
-        "NSScreenCaptureUsageDescription": "RemoteDesk shares your screen with people you approve.",
-        "NSAppleEventsUsageDescription": "RemoteDesk performs mouse and keyboard input sent by approved viewers."
+        "NSScreenCaptureUsageDescription": "Orbit shares your screen with people you approve.",
+        "NSAppleEventsUsageDescription": "Orbit performs mouse and keyboard input sent by approved viewers."
       }
     },
     "icon": "assets/icon.png",
     "win": {
       "target": ["nsis"],
-      "artifactName": "RemoteDesk-Setup.${ext}"
+      "artifactName": "Orbit-Setup.${ext}"
     },
     "nsis": {
       "oneClick": false,
@@ -52,14 +52,14 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "RemoteDesk"
+      "shortcutName": "Orbit"
     },
     "linux": {
       "target": ["AppImage", "deb"],
       "category": "Network",
-      "executableName": "remotedesk",
-      "maintainer": "RemoteDesk <noreply@example.com>",
-      "artifactName": "RemoteDesk.${ext}"
+      "executableName": "orbit",
+      "maintainer": "Orbit <noreply@example.com>",
+      "artifactName": "Orbit.${ext}"
     }
   }
 }
