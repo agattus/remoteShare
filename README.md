@@ -63,6 +63,20 @@ npm run dist       # installers for the current OS into packages/desktop/release
 
 `npm run dist` uses electron-builder: Windows (NSIS and portable), macOS (dmg and zip), Linux (AppImage and deb). Build each installer on its own OS. Code signing and notarization are not configured; unsigned builds trigger OS warnings.
 
+## Installers (Windows, macOS, Linux)
+
+`.github/workflows/release.yml` builds the installers on GitHub's own Windows, macOS and Linux machines:
+
+| OS | Output |
+| --- | --- |
+| Windows | `RemoteDesk-Setup-<version>.exe` (installs, adds Start menu and desktop shortcuts) |
+| macOS | `RemoteDesk-<version>-<arch>.dmg` and `.zip` (Apple silicon and Intel) |
+| Linux | `RemoteDesk-<version>.AppImage` and `.deb` |
+
+Run it from the repo's **Actions** tab (**Build installers**, then **Run workflow**) and download the installers from the run's artifacts. Or push a tag such as `v0.1.0` (`git tag v0.1.0 && git push github v0.1.0`) and the installers are attached to a GitHub Release. The installers are not code-signed, so Windows SmartScreen and macOS Gatekeeper warn on first launch (Windows: More info, then Run anyway; macOS: right-click the app, then Open).
+
+After installing, open RemoteDesk and use **Change** next to **Server** on the **This computer** tab to set your server address. The installed app runs in the system tray, so it stays reachable after you close its window. Use the tray menu for **Start at login**.
+
 ## Access from other locations
 
 Connections only work from outside your home network if the server is reachable from the internet, so run the server somewhere public (a small VPS is plenty, because it carries no video).

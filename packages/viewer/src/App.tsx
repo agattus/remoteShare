@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { ConnectPanel } from "@/components/ConnectPanel";
+import { DownloadApp } from "@/components/DownloadApp";
 import { HostPanel } from "@/components/HostPanel";
 import { RemoteScreen } from "@/components/RemoteScreen";
 import { SettingsDialog } from "@/components/SettingsDialog";
@@ -64,7 +65,18 @@ export function App() {
         </header>
 
         <main className="flex-1">
-          {tab === "host" && desktopApp ? <HostPanel host={host} /> : <ConnectPanel session={session} />}
+          {tab === "host" && desktopApp ? (
+            <HostPanel host={host} onOpenSettings={() => setSettingsOpen(true)} />
+          ) : (
+            <>
+              <ConnectPanel session={session} />
+              {!desktopApp && (
+                <div className="mx-auto w-full max-w-md">
+                  <DownloadApp />
+                </div>
+              )}
+            </>
+          )}
         </main>
       </div>
 

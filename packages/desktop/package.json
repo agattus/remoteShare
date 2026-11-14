@@ -4,6 +4,7 @@
   "private": true,
   "description": "RemoteDesk desktop app: share this computer or control another one.",
   "author": "RemoteDesk",
+  "homepage": "https://github.com/agattus/remoteShare",
   "main": "dist/main.cjs",
   "scripts": {
     "build": "node scripts/build.mjs",
@@ -34,12 +35,31 @@
     "mac": {
       "category": "public.app-category.utilities",
       "target": ["dmg", "zip"],
+      "artifactName": "RemoteDesk-${arch}.${ext}",
       "extendInfo": {
         "NSScreenCaptureUsageDescription": "RemoteDesk shares your screen with people you approve.",
         "NSAppleEventsUsageDescription": "RemoteDesk performs mouse and keyboard input sent by approved viewers."
       }
     },
-    "win": { "target": ["nsis", "portable"] },
-    "linux": { "target": ["AppImage", "deb"], "category": "Network", "executableName": "remotedesk", "maintainer": "RemoteDesk" }
+    "icon": "assets/icon.png",
+    "win": {
+      "target": ["nsis"],
+      "artifactName": "RemoteDesk-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "RemoteDesk"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Network",
+      "executableName": "remotedesk",
+      "maintainer": "RemoteDesk <noreply@example.com>",
+      "artifactName": "RemoteDesk.${ext}"
+    }
   }
 }

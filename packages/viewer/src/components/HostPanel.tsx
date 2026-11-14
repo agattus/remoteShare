@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useServerUrl } from "@/lib/settings";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { generatePassword, type HostController } from "@/lib/hostController";
 import { desktop, type PermissionStatus } from "@/lib/desktop";
@@ -39,8 +40,9 @@ const STATUS_LABEL = {
   offline: { text: "Offline", className: "bg-zinc-500/20 text-zinc-300" },
 } as const;
 
-export function HostPanel({ host }: { host: HostController }) {
+export function HostPanel({ host, onOpenSettings }: { host: HostController; onOpenSettings: () => void }) {
   const { status, error, config, session, screens, selectedScreen } = useStore(host.store);
+  const fallbackServer = useServerUrl();
   const [showPassword, setShowPassword] = useState(false);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
@@ -76,6 +78,14 @@ export function HostPanel({ host }: { host: HostController }) {
           </div>
         </CardHeader>
         <CardContent className="space-y-5">
+          <div className="flex items-center justify-between gap-3 rounded-md border bg-secondary/30 px-3 py-2 text-sm">
+            <span className="min-w-0 truncate text-muted-foreground">
+              Server: <span className="font-mono text-foreground">{config.serverUrl || fallbackServer}</span>
+            </span>
+            <Button variant="ghost" size="sm" onClick={onOpenSettings}>
+              Change
+            </Button>
+          </div>
           {error && status !== "online" && (
             <p role="alert" className="flex items-center gap-2 rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-red-200">
               <AlertTriangle className="size-4 shrink-0" /> {error}
