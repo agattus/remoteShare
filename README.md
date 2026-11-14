@@ -77,6 +77,15 @@ Run it from the repo's **Actions** tab (**Build installers**, then **Run workflo
 
 After installing, open RemoteDesk and use **Change** next to **Server** on the **This computer** tab to set your server address. The installed app runs in the system tray, so it stays reachable after you close its window. Use the tray menu for **Start at login**.
 
+## Free hosting on Render
+
+`render.yaml` deploys the signaling server (and the browser viewer) as a Docker web service:
+
+1. On render.com choose **New, Blueprint**, connect this GitHub repo, and apply `render.yaml`.
+2. When it is live you get an address like `https://remoteshare-server.onrender.com`. Open it in a browser to use the viewer, and paste the same address into **Server** (Change) in the desktop app on both laptops.
+
+The free plan sleeps after 15 minutes without traffic (the first connection after that takes about a minute) and does not keep disk data, so Device IDs are re-claimed after a restart. Use a paid plan with a disk (set `DATA_DIR` to the disk mount) or a VPS for always-on use.
+
 ## Access from other locations
 
 Connections only work from outside your home network if the server is reachable from the internet, so run the server somewhere public (a small VPS is plenty, because it carries no video).

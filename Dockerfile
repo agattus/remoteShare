@@ -17,6 +17,7 @@ ENV NODE_ENV=production PORT=47831 DATA_DIR=/data
 COPY --from=build /app/node_modules node_modules
 COPY --from=build /app/packages/server/dist packages/server/dist
 COPY --from=build /app/packages/viewer/dist packages/viewer/dist
+RUN mkdir -p /data && chown node:node /data
 VOLUME /data
 EXPOSE 47831
 USER node

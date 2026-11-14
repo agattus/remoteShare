@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: remoteshare-server
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: TRUST_PROXY
+        value: "1"
+      - key: DATA_DIR
+        value: /tmp/remotedesk
