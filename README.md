@@ -1,6 +1,6 @@
-# Orbit
+# Tethera
 
-Access your computer from anywhere, from a browser or from a desktop app. Orbit works like AnyDesk or TeamViewer: the computer you want to reach runs the desktop app and gets a 9-digit Device ID and a password, and you connect to it from any other device.
+Access your computer from anywhere, from a browser or from a desktop app. Tethera works like AnyDesk or TeamViewer: the computer you want to reach runs the desktop app and gets a 9-digit Device ID and a password, and you connect to it from any other device.
 
 - **Desktop app (Windows, macOS, Linux)** shares the computer's screen and accepts mouse and keyboard input. The same app can also connect to other computers.
 - **Browser viewer** needs no install. Open the server's address, type the Device ID and password, and control the remote screen.
@@ -22,7 +22,7 @@ flowchart LR
 - Always-visible banner and tray entry on the host while someone is connected, with a Disconnect button
 - Live screen, mouse (move, click, drag, scroll) and keyboard control, including special combos (Ctrl+Alt+Del, Alt+Tab, Win/Cmd key)
 - Multi-monitor selection, quality presets (15 / 30 / 60 fps), fit-to-window or 100% scaling, view-only mode, fullscreen with keyboard lock
-- Clipboard text sync in both directions and file send (up to 200 MB) to the host's `Downloads/Orbit` folder
+- Clipboard text sync in both directions and file send (up to 200 MB) to the host's `Downloads/Tethera` folder
 - Connection stats (latency, fps, bitrate), recent devices, and clear error states for wrong password, offline device, declined or timed-out requests, busy device, and lockouts
 
 ## Repository layout
@@ -69,13 +69,13 @@ npm run dist       # installers for the current OS into packages/desktop/release
 
 | OS | Output |
 | --- | --- |
-| Windows | `Orbit-Setup.exe` (installs, adds Start menu and desktop shortcuts) |
-| macOS | `Orbit-<arch>.dmg` and `.zip` (Apple silicon and Intel) |
-| Linux | `Orbit.AppImage` and `.deb` |
+| Windows | `Tethera-Setup.exe` (installs, adds Start menu and desktop shortcuts) |
+| macOS | `Tethera-<arch>.dmg` and `.zip` (Apple silicon and Intel) |
+| Linux | `Tethera.AppImage` and `.deb` |
 
 Run it from the repo's **Actions** tab (**Build installers**, then **Run workflow**) and download the installers from the run's artifacts. Or push a tag such as `v0.1.0` (`git tag v0.1.0 && git push github v0.1.0`) and the installers are attached to a GitHub Release. The installers are not code-signed, so Windows SmartScreen and macOS Gatekeeper warn on first launch (Windows: More info, then Run anyway; macOS: right-click the app, then Open).
 
-After installing, open Orbit and use **Change** next to **Server** on the **This computer** tab to set your server address. The installed app runs in the system tray, so it stays reachable after you close its window. Use the tray menu for **Start at login**.
+After installing, open Tethera and use **Change** next to **Server** on the **This computer** tab to set your server address. The installed app runs in the system tray, so it stays reachable after you close its window. Use the tray menu for **Start at login**.
 
 ## Free hosting on Render
 
@@ -146,8 +146,8 @@ Anyone who can reach your server can try to connect to a Device ID, so keep pass
 
 ## Platform notes
 
-- **macOS:** grant **Screen Recording** and **Accessibility** to Orbit (System Settings, Privacy & Security). The **This computer** tab detects missing permissions and offers buttons that open the right pane. Restart the app after granting Screen Recording.
-- **Windows:** windows running as administrator (and the UAC prompt, lock screen and Ctrl+Alt+Del screen) cannot be controlled unless Orbit itself runs as administrator. Ctrl+Alt+Del cannot be injected by any user-mode app, so the toolbar combo is best effort.
+- **macOS:** grant **Screen Recording** and **Accessibility** to Tethera (System Settings, Privacy & Security). The **This computer** tab detects missing permissions and offers buttons that open the right pane. Restart the app after granting Screen Recording.
+- **Windows:** windows running as administrator (and the UAC prompt, lock screen and Ctrl+Alt+Del screen) cannot be controlled unless Tethera itself runs as administrator. Ctrl+Alt+Del cannot be injected by any user-mode app, so the toolbar combo is best effort.
 - **Linux:** X11 sessions work fully. On **Wayland**, capture goes through a system prompt and input injection is not available, so viewers get a view-only session (the app tells you so). Log in with an X11 session for full control. `libxtst` must be installed for input injection.
 - Keyboard layouts: keys are sent as physical key codes, so the host's layout decides which characters appear.
 

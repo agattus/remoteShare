@@ -2,8 +2,8 @@
   "name": "@remotedesk/desktop",
   "version": "0.1.0",
   "private": true,
-  "description": "Orbit desktop app: share this computer or control another one.",
-  "author": "Orbit",
+  "description": "Tethera desktop app: share this computer or control another one.",
+  "author": "Tethera",
   "homepage": "https://github.com/agattus/remoteShare",
   "main": "dist/main.cjs",
   "scripts": {
@@ -25,9 +25,9 @@
     "esbuild": "^0.25.0"
   },
   "build": {
-    "appId": "com.orbit.desktop",
+    "appId": "com.tethera.desktop",
     "npmRebuild": false,
-    "productName": "Orbit",
+    "productName": "Tethera",
     "directories": { "output": "release" },
     "files": ["dist/**", "assets/**", "package.json"],
     "extraResources": [{ "from": "../viewer/dist", "to": "viewer" }],
@@ -35,16 +35,16 @@
     "mac": {
       "category": "public.app-category.utilities",
       "target": ["dmg", "zip"],
-      "artifactName": "Orbit-${arch}.${ext}",
+      "artifactName": "Tethera-${arch}.${ext}",
       "extendInfo": {
-        "NSScreenCaptureUsageDescription": "Orbit shares your screen with people you approve.",
-        "NSAppleEventsUsageDescription": "Orbit performs mouse and keyboard input sent by approved viewers."
+        "NSScreenCaptureUsageDescription": "Tethera shares your screen with people you approve.",
+        "NSAppleEventsUsageDescription": "Tethera performs mouse and keyboard input sent by approved viewers."
       }
     },
     "icon": "assets/icon.png",
     "win": {
       "target": ["nsis"],
-      "artifactName": "Orbit-Setup.${ext}"
+      "artifactName": "Tethera-Setup.${ext}"
     },
     "nsis": {
       "oneClick": false,
@@ -52,14 +52,14 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Orbit"
+      "shortcutName": "Tethera"
     },
     "linux": {
       "target": ["AppImage", "deb"],
       "category": "Network",
-      "executableName": "orbit",
-      "maintainer": "Orbit <noreply@example.com>",
-      "artifactName": "Orbit.${ext}"
+      "executableName": "tethera",
+      "maintainer": "Tethera <noreply@example.com>",
+      "artifactName": "Tethera.${ext}"
     }
   }
 }

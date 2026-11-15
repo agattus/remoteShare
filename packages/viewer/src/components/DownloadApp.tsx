@@ -21,14 +21,14 @@ const OS: Record<Known, { name: string; icon: React.ComponentType<{ className?: 
 function AppPreview() {
   return (
     <div aria-hidden="true" className="relative mx-auto w-full max-w-sm select-none">
-      <div className="absolute -inset-6 -z-10 rounded-full bg-[radial-gradient(closest-side,oklch(0.6_0.22_285/0.35),transparent)] blur-xl" />
-      <div className="overflow-hidden rounded-xl border border-white/10 bg-[oklch(0.18_0.02_270)] shadow-[0_30px_60px_-20px_oklch(0_0_0/0.8)]">
+      <div className="absolute -inset-6 -z-10 rounded-full bg-[radial-gradient(closest-side,oklch(0.62_0.17_235/0.35),transparent)] blur-xl" />
+      <div className="overflow-hidden rounded-xl border border-white/10 bg-[oklch(0.18_0.025_255)] shadow-[0_30px_60px_-20px_oklch(0_0_0/0.8)]">
         <div className="flex items-center gap-1.5 border-b border-white/10 px-3 py-2">
           <span className="size-2.5 rounded-full bg-[#ff5f57]" />
           <span className="size-2.5 rounded-full bg-[#febc2e]" />
           <span className="size-2.5 rounded-full bg-[#28c840]" />
           <span className="ml-3 flex items-center gap-1.5 text-[0.7rem] text-muted-foreground">
-            <Logo className="size-3.5" /> Orbit
+            <Logo className="size-3.5" /> Tethera
           </span>
         </div>
         <div className="space-y-3 p-4">
@@ -65,14 +65,14 @@ export function DownloadApp() {
       className="glass animate-float-in relative overflow-hidden rounded-3xl p-6 sm:p-8"
       style={{ animationDelay: "140ms" }}
     >
-      <div className="pointer-events-none absolute -top-24 -right-24 size-64 rounded-full bg-[radial-gradient(closest-side,oklch(0.65_0.22_300/0.35),transparent)]" />
+      <div className="pointer-events-none absolute -top-24 -right-24 size-64 rounded-full bg-[radial-gradient(closest-side,oklch(0.65_0.15_215/0.35),transparent)]" />
       <div className="relative grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
         <div className="space-y-6">
         <div className="flex items-center gap-4">
-          <Logo className="size-14 shrink-0 drop-shadow-[0_10px_20px_oklch(0.6_0.22_285/0.5)]" />
+          <Logo className="size-14 shrink-0 drop-shadow-[0_10px_20px_oklch(0.62_0.17_235/0.5)]" />
           <div>
             <h2 id="download-title" className="text-xl font-semibold tracking-tight">
-              Get the Orbit app
+              Get the Tethera app
             </h2>
             <p className="text-sm text-muted-foreground">Install it on the computer you want to reach. It stays ready in your system tray.</p>
           </div>
@@ -87,7 +87,7 @@ export function DownloadApp() {
                 download
                 className={`group flex flex-1 items-center gap-3 rounded-xl px-4 py-3 text-left transition-all focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none ${
                   index === 0
-                    ? "bg-gradient-to-b from-[oklch(0.7_0.19_272)] to-[oklch(0.58_0.22_285)] text-white shadow-[0_12px_30px_-10px_oklch(0.6_0.22_280/0.9),inset_0_1px_0_oklch(1_0_0/0.25)] hover:brightness-110"
+                    ? "bg-gradient-to-b from-[oklch(0.76_0.13_200)] to-[oklch(0.56_0.2_262)] text-white shadow-[0_12px_30px_-10px_oklch(0.62_0.17_235/0.9),inset_0_1px_0_oklch(1_0_0/0.25)] hover:brightness-110"
                     : "border border-white/10 bg-white/5 hover:bg-white/10"
                 }`}
               >

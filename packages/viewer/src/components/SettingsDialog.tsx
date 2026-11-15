@@ -34,7 +34,7 @@ export function SettingsDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Settings</DialogTitle>
-          <DialogDescription>Both computers must use the same Orbit server.</DialogDescription>
+          <DialogDescription>Both computers must use the same Tethera server.</DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
           <div className="space-y-2">

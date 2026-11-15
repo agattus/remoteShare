@@ -42,8 +42,8 @@ export function App() {
       <div className="mx-auto flex min-h-full max-w-5xl flex-col px-4 py-5 sm:px-6">
         <header className="mb-8 flex items-center justify-between gap-4 sm:mb-12">
           <div className="flex items-center gap-2.5">
-            <Logo className="size-9 drop-shadow-[0_6px_16px_oklch(0.6_0.22_285/0.6)]" />
-            <span className="text-lg font-semibold tracking-tight">Orbit</span>
+            <Logo className="size-9 drop-shadow-[0_6px_16px_oklch(0.62_0.17_235/0.6)]" />
+            <span className="text-lg font-semibold tracking-tight">Tethera</span>
           </div>
 
           <div className="flex items-center gap-2">

@@ -192,7 +192,7 @@ try {
     const file = path.join(tmp, "sample-upload.bin");
     fs.writeFileSync(file, payload);
     await page.locator('input[type="file"]').setInputFiles(file);
-    const saved = path.join(hostEnv.HOME, "Downloads/Orbit/sample-upload.bin");
+    const saved = path.join(hostEnv.HOME, "Downloads/Tethera/sample-upload.bin");
     await waitFor(() => fs.existsSync(saved) && fs.statSync(saved).size === payload.length, 10_000, "saved file").catch(async (e) => { const toast = await page.locator("[data-sonner-toast]").allInnerTexts(); throw new Error(`${e.message}; toasts: ${JSON.stringify(toast)}; host log: ${host.log.split("\n").filter((l) => !/bus.cc|object_proxy/.test(l)).slice(-1).join(" | ")}; found: ${execFileSync("find", [tmp, "-name", "sample-upload*"], { encoding: "utf8" }).trim().split("\n").join(",")}`); });
     if (!fs.readFileSync(saved).equals(payload)) throw new Error("file content mismatch");
   });

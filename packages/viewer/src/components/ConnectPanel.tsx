@@ -71,7 +71,7 @@ export function ConnectPanel({ session, ownDeviceId }: { session: ViewerSession;
             <MonitorSmartphone className="size-5" />
           </div>
           <CardTitle className="text-xl">Control a remote computer</CardTitle>
-          <CardDescription>Enter the Device ID and password shown in the Orbit app on the other computer.</CardDescription>
+          <CardDescription>Enter the Device ID and password shown in the Tethera app on the other computer.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={submit} className="space-y-4">
